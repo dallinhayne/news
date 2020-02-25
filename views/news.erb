@@ -18,20 +18,40 @@
     <!-- Your own CSS -->
     <link rel="stylesheet" href="/styles.css">
 
+
     <title>News</title>
   </head>
   <body>
 
     <div class="container mt-5">
-      <h1>Enter your location:</h1>
-   
-<form action = "/news">
-    <label>Location</label>
-    <input name = "location" name = "location">
-    <button type = "Submit" class="btn btn-success">Submit</button>
-</form>
-</div>
+      <h1>Location</h1>
+    </div>
+ <div class="container mt-5">
+      <h1>Weather</h1>
+      <p>
+      <%="Current temperature: #{@current_temp} degrees."%>
+      </p>
+      <p>
+      <h2>Forecast for the Week</h2>
+        <%=for daily_forecast in @forecast["daily"]["data"]
+        "A high temperature of #{daily_forecast["temperatureHigh"]}. #{daily_forecast["summary"]}"
 
+        end %>
+        </p>
+        </p>     
+      
+      <iframe
+        width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw
+          &q=<%= @lat %>,<%= @long %>&zoom=6" allowfullscreen>
+      </iframe>
+    </div>
+
+    @daily_forecast = for day in @forecast["daily"]["data"]
+    "A high temperature of #{day["temperatureHigh"]}. #{day["summary"]}"
+end
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
