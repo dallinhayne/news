@@ -20,26 +20,40 @@
 
 
     <title>News</title>
-  </head>
-  <body>
 
-    <div class="container mt-5">
-      <h1>Location</h1>
-    </div>
- <div class="container mt-5">
-      <h1>Weather</h1>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="mywebsite.html"><link href="https://fonts.googleapis.com/css?family=Cardo:400,700|Oswald" rel="stylesheet"></a> <div class="logotitle"> <strong>NEWSPAPER by...</strong></div></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Location <span class="sr-only">(current)</span></a>
+            </li>
+                      </ul>
+        </div>
+      </nav>
+  </head>
+  
+  <body>
+]
+ <div class="forecast">
+      <h1>Current Weather</h1>
       <p>
-      <%="Current temperature: #{@current_temp} degrees."%>
+      <%="Current temperature is #{@current_temp} degrees."%>
       </p>
       <p>
       <h2>Forecast for the Week</h2>
-        <%=for daily_forecast in @forecast["daily"]["data"]
-        "A high temperature of #{daily_forecast["temperatureHigh"]}. #{daily_forecast["summary"]}"
+        <% for daily_forecast in @forecast["daily"]["data"] %>
+       <div> <%= " The next day has a high temperature of #{daily_forecast["temperatureHigh"]}. #{daily_forecast["summary"]}" %></div>
 
-        end %>
-        </p>
-        </p>     
-      
+       <% end %>
+
+       <P>
+<hr>
+
+    </p>  
       <iframe
         width="600"
         height="450"
@@ -47,11 +61,25 @@
         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw
           &q=<%= @lat %>,<%= @long %>&zoom=6" allowfullscreen>
       </iframe>
+<hr>
+      <div class = "LogoTitle"><strong>NATIONAL NEWS</strong></div>
+       
+    <p></p>
+     <% for top_article in @news["articles"] %>
+       <div class = "container">
+       <div class = "row">
+       <div class="col-2"><%= top_article["source"]["name"] %></div>
+       <div class="col-2"><%= top_article["author"] %></div>
+       <div class="col-5"> <%= top_article["description"] %> </div>
+       <div class="col-3"> <a href="<%= top_article["url"] %>"> <%= top_article["title"] %> </a> </div>
+    </div>
+    </div>
+       <% end %>
+<hr>
     </div>
 
-    @daily_forecast = for day in @forecast["daily"]["data"]
-    "A high temperature of #{day["temperatureHigh"]}. #{day["summary"]}"
-end
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

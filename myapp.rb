@@ -17,15 +17,16 @@ end
 get "/news" do
     results = Geocoder.search(params["location"]) 
     lat_long = results.first.coordinates # => [lat,long]
-    lat = lat_long[0]
-    long = lat_long[1]
+    @lat = lat_long[0]
+    @long = lat_long[1]
 
 
-@forecast = ForecastIO.forecast("#{lat}","#{long}").to_hash
+@forecast = ForecastIO.forecast("#{@lat}","#{@long}").to_hash
 @current_temp = @forecast["currently"]["temperature"]
 
 
-url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=ec33d05952e94bb79e891a491a52a49c"
-news = HTTParty.get(@url).parsed_response.to_hash
+@url = "https://newsapi.org/v2/top-headlines?country=us&apiKey=ec33d05952e94bb79e891a491a52a49c"
+@news = HTTParty.get(@url).parsed_response.to_hash
 
+view "news"
 end
